@@ -1,0 +1,26 @@
+При создании сервера используем ключ
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJP7d2Tlo8qKrgEit5W/OzywDd+GX2w/pbyHLiIQTept 79822@MSI - его нужно копировать полностью, чтобы подключиться к БД
+
+далее вводим команду ssh 0e83e212-09ef-4253-8999-4b321b1d7e5f@serverhub.praktikum-services.ru -p4554
+
+
+Задание 1:
+
+SELECT c."login", 
+COUNT (o."courierId") AS orders_in_delivery 
+FROM "Orders" AS o 
+INNER JOIN "Couriers" AS c ON o."courierId"=c."id" 
+WHERE o."inDelivery" = true 
+GROUP BY c."login";
+
+Задание 2:
+
+SELECT "track",
+CASE
+    WHEN "finished" = true THEN 2
+    WHEN "cancelled" = true THEN -1
+    WHEN "inDelivery" = true THEN 1
+    ELSE 0
+  END AS "status"
+FROM "Orders";
